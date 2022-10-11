@@ -258,6 +258,10 @@ void AEnemyCharacter::UpdateScentArray()
 	}
 }
 
+void AEnemyCharacter::OnGenerate()
+{
+}
+
 void AEnemyCharacter::MoveAlongPath()
 {
 	if(Path.Num() > 0 && Manager !=nullptr)

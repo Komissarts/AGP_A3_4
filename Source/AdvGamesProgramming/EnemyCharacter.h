@@ -86,6 +86,15 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 		void Fire(FVector FireDirection);
 
+	//Values for EnemyVariants
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
+	float EnemySpeed;
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
+	float EnemyDamage;
+
+	virtual void OnGenerate();
+	
 private:
 
 	void MoveAlongPath();
