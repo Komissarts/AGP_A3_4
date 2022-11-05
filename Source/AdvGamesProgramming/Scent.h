@@ -18,8 +18,10 @@ public:
 	float ScentRadius;
 	UPROPERTY(Replicated, BlueprintReadOnly, EditAnywhere)
 	float ScentLifetime;
+	UPROPERTY(Replicated, BlueprintReadOnly, EditAnywhere)
+	float ScentTimer;
 
-	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	//void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
 protected:
 	// Called when the game starts or when spawned

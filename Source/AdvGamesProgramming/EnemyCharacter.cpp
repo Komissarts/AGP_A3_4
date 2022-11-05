@@ -212,7 +212,11 @@ void AEnemyCharacter::SensePlayer(AActor* ActorSensed, FAIStimulus Stimulus)
 				!PreviouslyVisitedScentNodes.Contains(Manager->FindNearestNode(DetectedActor->GetActorLocation())))
 			{	//Only Adds unique ANavigation nodes that are closest to the sensed scents,
 				//as long as they are not the actor's current node and not in the previously visited scent nodes
+
+				AScent* tempScent = Cast<AScent>(DetectedActor);
+				
 				ScentNodesToVisit.AddUnique(Manager->FindNearestNode(DetectedActor->GetActorLocation()));
+				//UE_LOG(LogTemp, Display, TEXT("DetectedScent Timer %f"), tempScent->ScentTimer())
 				bCanSmellScent = true;
 			}
 		} else

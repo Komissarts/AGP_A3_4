@@ -3,10 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Scent.h"
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
-#include  "Scent.h"
+#include "Scent.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -32,11 +31,13 @@ public:
 	UPROPERTY(EditInstanceOnly)
 	float SprintMultiplier;
 
-	UFUNCTION(Server, Reliable)
-		void ServerSprintStart();
+	//UFUNCTION(Server, Reliable)
+	//	void ServerSprintStart();
 
-	UFUNCTION(Server, Reliable)
-		void ServerSprintEnd();
+	//UFUNCTION(Server, Reliable)
+	//	void ServerSprintEnd();
+	
+	class UHealthComponent* HealthComponent;
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -52,6 +53,7 @@ public:
 	void SprintEnd();
 	void Reload();
 
+	
 	UPROPERTY(EditDefaultsOnly, Category = "PlayerScent")
 		TSubclassOf<AScent> ScentToSpawnBP;
 
@@ -64,6 +66,21 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void BlueprintReload();
+
+	UFUNCTION(Server, Reliable)
+	void ServerSprintStart();
+	UFUNCTION(Server, Reliable)
+	void ServerSprintEnd();
+	UFUNCTION(Client, Reliable)
+	void SetPlayerHUDVisibility(bool bHUDVisible);
+
+	void OnDeath();
+
+	/**
+	 * Will hide and show the required shadows and models of the character
+	 */
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void ResetModelVisibility();
 
 private:
 

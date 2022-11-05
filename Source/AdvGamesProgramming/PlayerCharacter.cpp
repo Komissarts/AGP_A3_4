@@ -26,6 +26,8 @@ APlayerCharacter::APlayerCharacter()
 
 	SprintMovementSpeed = GetCharacterMovement()->MaxWalkSpeed * SprintMultiplier;
 	NormalMovementSpeed = GetCharacterMovement()->MaxWalkSpeed;
+	DistanceBeforeLeavingScent = 300;
+	TempPosition = GetActorLocation();
 }
 
 // Called when the game starts or when spawned
@@ -52,8 +54,14 @@ void APlayerCharacter::BeginPlay()
 // Called every frame
 void APlayerCharacter::Tick(float DeltaTime)
 {
+	//Spawns a Scent actor every set distance as a trail behind the player
 	Super::Tick(DeltaTime);
-
+	if(DistanceBeforeLeavingScent <= FVector::Dist(GetActorLocation(), TempPosition))
+	{
+		//UE_LOG(LogTemp, Warning, TEXT("Spawning Scent"))
+		GetWorld()->SpawnActor<AScent>(ScentToSpawnBP, GetTransform(), SpawnParams);
+		TempPosition = GetActorLocation();
+	}
 }
 
 // Called to bind functionality to input
@@ -173,39 +181,39 @@ void APlayerCharacter::Reload()
 
 void APlayerCharacter::OnDeath()
 {
-	if (GetLocalRole() == ROLE_Authority)
-	{
-		AMultiplayerGameMode* MultiplayerGameMode = Cast<AMultiplayerGameMode>(GetWorld()->GetAuthGameMode());
-		if (MultiplayerGameMode)
-		{
-			MultiplayerGameMode->Respawn(GetController());
-		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Unable to find the GameMode"))
-		}
-	}
+//	if (GetLocalRole() == ROLE_Authority)
+//	{
+//		AMultiplayerGameMode* MultiplayerGameMode = Cast<AMultiplayerGameMode>(GetWorld()->GetAuthGameMode());
+//		if (MultiplayerGameMode)
+//		{
+//			MultiplayerGameMode->Respawn(GetController());
+//		}
+//		else
+//		{
+//			UE_LOG(LogTemp, Warning, TEXT("Unable to find the GameMode"))
+//		}
+//	}
 }
 
 
 void APlayerCharacter::SetPlayerHUDVisibility_Implementation(bool bHUDVisible)
 {
-	if (GetLocalRole() == ROLE_AutonomousProxy)
-	{
-		if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
-		{
-			APlayerHUD* PlayerHUD = Cast<APlayerHUD>(PlayerController->GetHUD());
-			if (PlayerHUD)
-			{
-				bHUDVisible ? PlayerHUD->ShowHUD() : PlayerHUD->HideHUD();
-				UE_LOG(LogTemp, Warning, TEXT("Hiding the HUD"))
-			}
-			else
-			{
-				UE_LOG(LogTemp, Error, TEXT("Can't find HUD on controller. AUTONOMOUS"))
-			}
-		}
-	}
+//	if (GetLocalRole() == ROLE_AutonomousProxy)
+//	{
+//		if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
+//		{
+//			APlayerHUD* PlayerHUD = Cast<APlayerHUD>(PlayerController->GetHUD());
+//			if (PlayerHUD)
+//			{
+//				bHUDVisible ? PlayerHUD->ShowHUD() : PlayerHUD->HideHUD();
+//				UE_LOG(LogTemp, Warning, TEXT("Hiding the HUD"))
+//			}
+//			else
+//			{
+//				UE_LOG(LogTemp, Error, TEXT("Can't find HUD on controller. AUTONOMOUS"))
+//			}
+//		}
+//	}
 }
 
 

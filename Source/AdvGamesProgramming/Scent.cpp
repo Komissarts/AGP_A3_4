@@ -11,6 +11,7 @@ AScent::AScent()
 	
 	ScentRadius = 30;
 	ScentLifetime = 5;
+	ScentTimer = ScentLifetime;
 }
 // Called when the game starts or when spawned
 void AScent::BeginPlay()
@@ -22,5 +23,13 @@ void AScent::BeginPlay()
 void AScent::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	ScentTimer -= GetWorld()->GetDeltaSeconds();
+
+	if(ScentTimer <= 0.0f)
+	{
+		//AActor::Destroy();
+	}
+	
 	DrawDebugSphere(GetWorld(),GetActorLocation(), ScentRadius, 10, FColor::Blue, false, 30.0f, 1, 2.0f);
 }
