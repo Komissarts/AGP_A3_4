@@ -137,6 +137,14 @@ void AProcBaseRoom::AddRoomsToArrays()
 	
 	//Adding rooms to the hallway array
 	HallWayArray.Add(HallWayVariant1);
+	HallWayArray.Add(HallWayVariant1a);
+	HallWayArray.Add(HallWayVariant1b);
+	
 	HallWayArray.Add(HallWayVariant2);
+	HallWayArray.Add(HallWayVariant2a);
+	HallWayArray.Add(HallWayVariant2b);
+	
 	HallWayArray.Add(HallWayVariant3);
+	HallWayArray.Add(HallWayVariant3a);
+	HallWayArray.Add(HallWayVariant3b);
 }
