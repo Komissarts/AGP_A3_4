@@ -2,12 +2,15 @@
 
 
 #include "PlayerCharacter.h"
-#include "Math/Vector.h"
-#include "Net/UnrealNetwork.h"
 #include "Components/InputComponent.h"
 #include "FirstPersonAnimInstance.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Math/UnitConversion.h"
+#include "Net/UnrealNetwork.h"
+#include "HealthComponent.h"
+#include "MultiplayerGameMode.h"
+#include "Engine/World.h"
+#include "PlayerHUD.h"
+#include "GameFramework/HUD.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -23,9 +26,6 @@ APlayerCharacter::APlayerCharacter()
 
 	SprintMovementSpeed = GetCharacterMovement()->MaxWalkSpeed * SprintMultiplier;
 	NormalMovementSpeed = GetCharacterMovement()->MaxWalkSpeed;
-
-	DistanceBeforeLeavingScent = 300;
-	TempPosition = GetActorLocation();
 }
 
 // Called when the game starts or when spawned
@@ -35,6 +35,11 @@ void APlayerCharacter::BeginPlay()
 
 	//Initialise the camera variable
 	Camera = FindComponentByClass<UCameraComponent>();
+	//Initialise the health component
+	HealthComponent = FindComponentByClass<UHealthComponent>();
+	//UE_LOG(LogTemp, Warning, TEXT("IM HERE"))
+	if (HealthComponent)
+		HealthComponent->SetIsReplicated(true);
 
 	// Get the skeletal mesh and then get the anim instance from it cast to the first person anim instance.
 	USkeletalMeshComponent* SkeletalMesh = Cast<USkeletalMeshComponent>(GetDefaultSubobjectByName(TEXT("Arms")));
@@ -47,32 +52,24 @@ void APlayerCharacter::BeginPlay()
 // Called every frame
 void APlayerCharacter::Tick(float DeltaTime)
 {
-	//Spawns a Scent actor every set distance as a trail behind the player
 	Super::Tick(DeltaTime);
-	if(DistanceBeforeLeavingScent <= FVector::Dist(GetActorLocation(), TempPosition))
-	{
-		//UE_LOG(LogTemp, Warning, TEXT("Spawning Scent"))
-		GetWorld()->SpawnActor<AScent>(ScentToSpawnBP, GetTransform(), SpawnParams);
-		TempPosition = GetActorLocation();
-	}
+
 }
 
 // Called to bind functionality to input
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	if (PlayerInputComponent) {
-		PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &APlayerCharacter::MoveForward);
-		PlayerInputComponent->BindAxis(TEXT("Strafe"), this, &APlayerCharacter::Strafe);
-		PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &APlayerCharacter::LookUp);
-		PlayerInputComponent->BindAxis(TEXT("Turn"), this, &APlayerCharacter::Turn);
 
-		PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed, this, &ACharacter::Jump);
-		PlayerInputComponent->BindAction(TEXT("Sprint"), EInputEvent::IE_Pressed, this, &APlayerCharacter::SprintStart);
-		PlayerInputComponent->BindAction(TEXT("Sprint"), EInputEvent::IE_Released, this, &APlayerCharacter::SprintEnd);
-		PlayerInputComponent->BindAction(TEXT("Reload"), EInputEvent::IE_Pressed, this, &APlayerCharacter::Reload);
-	}
+	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &APlayerCharacter::MoveForward);
+	PlayerInputComponent->BindAxis(TEXT("Strafe"), this, &APlayerCharacter::Strafe);
+	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &APlayerCharacter::LookUp);
+	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &APlayerCharacter::Turn);
 
+	PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed, this, &ACharacter::Jump);
+	PlayerInputComponent->BindAction(TEXT("Sprint"), EInputEvent::IE_Pressed, this, &APlayerCharacter::SprintStart);
+	PlayerInputComponent->BindAction(TEXT("Sprint"), EInputEvent::IE_Released, this, &APlayerCharacter::SprintEnd);
+	PlayerInputComponent->BindAction(TEXT("Reload"), EInputEvent::IE_Pressed, this, &APlayerCharacter::Reload);
 }
 
 void APlayerCharacter::MoveForward(float Value) 
@@ -119,17 +116,17 @@ void APlayerCharacter::LookUp(float Value)
 	*/
 	FRotator LookUpRotation = FRotator::ZeroRotator;
 	LookUpRotation.Pitch = Value * LookSensitivity;
-	if (abs(Camera->GetRelativeRotation().Pitch + LookUpRotation.Pitch >= 90.0f)) {
-		return;
-	}
-	if (Camera) {
+	if (Camera)
+	{
+		if (abs(Camera->GetRelativeRotation().Pitch + LookUpRotation.Pitch >= 90.0f)) {
+			return;
+		}
 		Camera->AddRelativeRotation(LookUpRotation);
 		FRotator RelativeRotation = Camera->GetRelativeRotation();
 		RelativeRotation.Yaw = 0.0f;
 		RelativeRotation.Roll = 0.0f;
 		Camera->SetRelativeRotation(RelativeRotation);
 	}
-
 }
 
 void APlayerCharacter::Turn(float Value) 
@@ -139,8 +136,8 @@ void APlayerCharacter::Turn(float Value)
 
 void APlayerCharacter::SprintStart()
 {
-	GetCharacterMovement()->MaxWalkSpeed = SprintMovementSpeed;
 	ServerSprintStart();
+	GetCharacterMovement()->MaxWalkSpeed = SprintMovementSpeed;
 
 	if (AnimInstance)
 	{
@@ -150,8 +147,8 @@ void APlayerCharacter::SprintStart()
 
 void APlayerCharacter::SprintEnd()
 {
-	GetCharacterMovement()->MaxWalkSpeed = NormalMovementSpeed;
 	ServerSprintEnd();
+	GetCharacterMovement()->MaxWalkSpeed = NormalMovementSpeed;
 
 	if (AnimInstance)
 	{
@@ -173,3 +170,42 @@ void APlayerCharacter::Reload()
 {
 	BlueprintReload();
 }
+
+void APlayerCharacter::OnDeath()
+{
+	if (GetLocalRole() == ROLE_Authority)
+	{
+		AMultiplayerGameMode* MultiplayerGameMode = Cast<AMultiplayerGameMode>(GetWorld()->GetAuthGameMode());
+		if (MultiplayerGameMode)
+		{
+			MultiplayerGameMode->Respawn(GetController());
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Unable to find the GameMode"))
+		}
+	}
+}
+
+
+void APlayerCharacter::SetPlayerHUDVisibility_Implementation(bool bHUDVisible)
+{
+	if (GetLocalRole() == ROLE_AutonomousProxy)
+	{
+		if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
+		{
+			APlayerHUD* PlayerHUD = Cast<APlayerHUD>(PlayerController->GetHUD());
+			if (PlayerHUD)
+			{
+				bHUDVisible ? PlayerHUD->ShowHUD() : PlayerHUD->HideHUD();
+				UE_LOG(LogTemp, Warning, TEXT("Hiding the HUD"))
+			}
+			else
+			{
+				UE_LOG(LogTemp, Error, TEXT("Can't find HUD on controller. AUTONOMOUS"))
+			}
+		}
+	}
+}
+
+

@@ -28,7 +28,7 @@ void AEnemyCharacter::BeginPlay()
 	HealthComponent = FindComponentByClass<UHealthComponent>();
 
 	PerceptionComponent = FindComponentByClass<UAIPerceptionComponent>();
-	if (PerceptionComponent)
+	if (PerceptionComponent) 
 	{
 		PerceptionComponent->OnTargetPerceptionUpdated.AddDynamic(this, &AEnemyCharacter::SensePlayer);
 	}

@@ -14,11 +14,13 @@ class ADVGAMESPROGRAMMING_API AScent : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AScent();
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(Replicated, BlueprintReadOnly, EditAnywhere)
 	float ScentRadius;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(Replicated, BlueprintReadOnly, EditAnywhere)
 	float ScentLifetime;
 
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
