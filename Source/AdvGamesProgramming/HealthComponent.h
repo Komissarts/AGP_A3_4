@@ -12,6 +12,10 @@ class ADVGAMESPROGRAMMING_API UHealthComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+private:
+	UFUNCTION()
+	void UpdateHealthBar();
+	
 public:	
 	// Sets default values for this component's properties
 	UHealthComponent();
@@ -24,11 +28,13 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
 	float MaxHealth;
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(ReplicatedUsing = UpdateHealthBar, BlueprintReadOnly)
 	float CurrentHealth;
 
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
 	UFUNCTION(BlueprintCallable)
 	void OnTakeDamage(float Damage);
