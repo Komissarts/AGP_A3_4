@@ -102,10 +102,10 @@ public:
 		void Fire(FVector FireDirection);
 
 	//Values for EnemyVariants
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
+	UPROPERTY(Replicated,VisibleAnywhere,BlueprintReadOnly)
 	float EnemySpeed;
 
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
+	UPROPERTY(Replicated,VisibleAnywhere,BlueprintReadOnly)
 	float EnemyDamage;
 
 	virtual void OnGenerate();

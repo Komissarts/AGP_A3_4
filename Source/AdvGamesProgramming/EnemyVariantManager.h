@@ -24,12 +24,12 @@ class ADVGAMESPROGRAMMING_API AEnemyVariantManager : public AEnemyCharacter
 
 	
 public:
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
+	UPROPERTY(Replicated,VisibleAnywhere,BlueprintReadOnly)
 	EEnemyVariantType EnemyType;
 
 	UFUNCTION(BlueprintCallable)
 	void OnGenerate() override;
 
-	
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 }
 ;

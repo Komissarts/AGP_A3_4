@@ -55,6 +55,9 @@ void AEnemyCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME(AEnemyCharacter, bCanSeeActor);
 	DOREPLIFETIME(AEnemyCharacter, bCanSeePhobia);
 	DOREPLIFETIME(AEnemyCharacter, bCanSmellScent);
+
+	DOREPLIFETIME(AEnemyCharacter,EnemyDamage);
+	DOREPLIFETIME(AEnemyCharacter,EnemySpeed);
 }
 
 

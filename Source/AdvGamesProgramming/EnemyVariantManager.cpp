@@ -3,6 +3,8 @@
 
 #include "EnemyVariantManager.h"
 
+#include "Net/UnrealNetwork.h"
+
 void AEnemyVariantManager::OnGenerate()
 {
 	Super::OnGenerate();
@@ -115,4 +117,12 @@ void AEnemyVariantManager::OnGenerate()
 	}
 
 	
+}
+
+void AEnemyVariantManager::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AEnemyVariantManager,EnemyType);
+	DOREPLIFETIME(AEnemyVariantManager,EnemySpeed);
+	DOREPLIFETIME(AEnemyVariantManager,EnemyDamage);
 }	
