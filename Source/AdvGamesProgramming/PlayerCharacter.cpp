@@ -181,39 +181,39 @@ void APlayerCharacter::Reload()
 
 void APlayerCharacter::OnDeath()
 {
-//	if (GetLocalRole() == ROLE_Authority)
-//	{
-//		AMultiplayerGameMode* MultiplayerGameMode = Cast<AMultiplayerGameMode>(GetWorld()->GetAuthGameMode());
-//		if (MultiplayerGameMode)
-//		{
-//			MultiplayerGameMode->Respawn(GetController());
-//		}
-//		else
-//		{
-//			UE_LOG(LogTemp, Warning, TEXT("Unable to find the GameMode"))
-//		}
-//	}
+if (GetLocalRole() == ROLE_Authority)
+{
+	AMultiplayerGameMode* MultiplayerGameMode = Cast<AMultiplayerGameMode>(GetWorld()->GetAuthGameMode());
+	if (MultiplayerGameMode)
+	{
+		MultiplayerGameMode->Respawn(GetController());
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Unable to find the GameMode"))
+	}
+}
 }
 
 
 void APlayerCharacter::SetPlayerHUDVisibility_Implementation(bool bHUDVisible)
 {
-//	if (GetLocalRole() == ROLE_AutonomousProxy)
-//	{
-//		if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
-//		{
-//			APlayerHUD* PlayerHUD = Cast<APlayerHUD>(PlayerController->GetHUD());
-//			if (PlayerHUD)
-//			{
-//				bHUDVisible ? PlayerHUD->ShowHUD() : PlayerHUD->HideHUD();
-//				UE_LOG(LogTemp, Warning, TEXT("Hiding the HUD"))
-//			}
-//			else
-//			{
-//				UE_LOG(LogTemp, Error, TEXT("Can't find HUD on controller. AUTONOMOUS"))
-//			}
-//		}
-//	}
+if (GetLocalRole() == ROLE_AutonomousProxy)
+{
+	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
+	{
+		APlayerHUD* PlayerHUD = Cast<APlayerHUD>(PlayerController->GetHUD());
+		if (PlayerHUD)
+		{
+			bHUDVisible ? PlayerHUD->ShowHUD() : PlayerHUD->HideHUD();
+			UE_LOG(LogTemp, Warning, TEXT("Hiding the HUD"))
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("Can't find HUD on controller. AUTONOMOUS"))
+		}
+	}
+}
 }
 
 
