@@ -41,6 +41,23 @@ void AEnemyCharacter::BeginPlay()
 	ScentNodeTimer = ScentNodeMemory;
 }
 
+void AEnemyCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AEnemyCharacter, Path);
+	DOREPLIFETIME(AEnemyCharacter, CurrentNode);
+	DOREPLIFETIME(AEnemyCharacter, Manager);
+	DOREPLIFETIME(AEnemyCharacter, PathfindingNodeAccuracy);
+	DOREPLIFETIME(AEnemyCharacter, HealthComponent);
+	DOREPLIFETIME(AEnemyCharacter, CurrentAgentState);
+	DOREPLIFETIME(AEnemyCharacter, PerceptionComponent);
+	DOREPLIFETIME(AEnemyCharacter, DetectedActor);
+	DOREPLIFETIME(AEnemyCharacter, bCanSeeActor);
+	DOREPLIFETIME(AEnemyCharacter, bCanSeePhobia);
+	DOREPLIFETIME(AEnemyCharacter, bCanSmellScent);
+}
+
+
 // Called every frame
 void AEnemyCharacter::Tick(float DeltaTime)
 {

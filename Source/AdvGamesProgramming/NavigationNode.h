@@ -22,17 +22,22 @@ protected:
 
 public:	
 
-	UPROPERTY(EditAnywhere, Category = "ConnectedNodes")
-	TArray<ANavigationNode*> ConnectedNodes;
-	USceneComponent* LocationComponent;
-
-	float GScore;
-	float HScore;
-	ANavigationNode* CameFrom;
+	UPROPERTY(Replicated, EditAnywhere, Category = "ConnectedNodes")
+		TArray<ANavigationNode*> ConnectedNodes;
+	UPROPERTY(Replicated)
+		USceneComponent* LocationComponent;
+	UPROPERTY(Replicated)
+		float GScore;
+	UPROPERTY(Replicated)
+		float HScore;
+	UPROPERTY(Replicated)
+		ANavigationNode* CameFrom;
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	float FScore();
+	
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 };

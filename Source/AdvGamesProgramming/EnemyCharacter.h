@@ -32,23 +32,34 @@ protected:
 
 public:	
 
-	TArray <class ANavigationNode* > Path;
-	ANavigationNode* CurrentNode;
-	class AAIManager* Manager;
+	UPROPERTY(Replicated)
+		TArray <class ANavigationNode* > Path;
+	UPROPERTY(Replicated)
+		ANavigationNode* CurrentNode;
+	UPROPERTY(Replicated)
+		class AAIManager* Manager;
 
-	UPROPERTY(EditAnywhere, meta=(UIMin="10.0", UIMax="1000.0", ClampMin="10.0", ClampMax="1000.0"))
-	float PathfindingNodeAccuracy;
+	UPROPERTY(Replicated, EditAnywhere, meta=(UIMin="10.0", UIMax="1000.0", ClampMin="10.0", ClampMax="1000.0"))
+		float PathfindingNodeAccuracy;
 
-	class UHealthComponent* HealthComponent;
+	UPROPERTY(Replicated)
+		class UHealthComponent* HealthComponent;
 
-	UPROPERTY(VisibleAnywhere, Category = "AI")
-	AgentState CurrentAgentState;
+	UPROPERTY(Replicated, VisibleAnywhere, Category = "AI")
+		AgentState CurrentAgentState;
 
-	class UAIPerceptionComponent* PerceptionComponent;
-	AActor* DetectedActor;
-	bool bCanSeeActor;
-	bool bCanSeePhobia;
-	bool bCanSmellScent;
+	UPROPERTY(Replicated)
+		class UAIPerceptionComponent* PerceptionComponent;
+	UPROPERTY(Replicated)
+		AActor* DetectedActor;
+	UPROPERTY(Replicated)
+		bool bCanSeeActor;
+	UPROPERTY(Replicated)
+		bool bCanSeePhobia;
+	UPROPERTY(Replicated)
+		bool bCanSmellScent;
+
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -74,13 +85,14 @@ public:
 		TArray<ANavigationNode*> ScentNodesToVisit;
 		
 	UPROPERTY(VisibleAnywhere, Category = "Scent")
-	TArray<AScent*> ScentsToVisit;
+		TArray<AScent*> ScentsToVisit;
 	UPROPERTY(VisibleAnywhere, Category = "Scent")
 		TArray<ANavigationNode*> PreviouslyVisitedScentNodes;
 	UPROPERTY(EditAnywhere, Category = "Scent")
 		float ScentNodeMemory;
+	
 	int32 ScentNodeMemoryAmount;
-		float ScentNodeTimer;
+	float ScentNodeTimer;
 
 	//Default Sensing and Firing
 	UFUNCTION()

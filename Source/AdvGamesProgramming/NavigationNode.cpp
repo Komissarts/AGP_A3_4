@@ -26,6 +26,17 @@ void ANavigationNode::BeginPlay()
 	
 }
 
+void ANavigationNode::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(ANavigationNode, ConnectedNodes);
+	DOREPLIFETIME(ANavigationNode, LocationComponent);
+	DOREPLIFETIME(ANavigationNode, GScore);
+	DOREPLIFETIME(ANavigationNode, HScore);
+	DOREPLIFETIME(ANavigationNode, CameFrom);
+}
+
+
 // Called every frame
 void ANavigationNode::Tick(float DeltaTime)
 {

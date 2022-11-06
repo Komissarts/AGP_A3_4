@@ -21,18 +21,20 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	UPROPERTY(EditAnywhere, Category = "AI Properties")
-	int32 NumAI;
-	UPROPERTY(VisibleAnywhere, Category = "Navigation Nodes")
-	TArray<class ANavigationNode*> AllNodes;
-	UPROPERTY(VisibleAnywhere, Category = "Agents")
-	TArray<class AEnemyCharacter*> AllAgents;
-	UPROPERTY(EditAnywhere, Category = "Agents")
-	TSubclassOf<AEnemyCharacter> AgentToSpawn;
+	UPROPERTY(Replicated, EditAnywhere, Category = "AI Properties")
+		int32 NumAI;
+	UPROPERTY(Replicated, VisibleAnywhere, Category = "Navigation Nodes")
+		TArray<class ANavigationNode*> AllNodes;
+	UPROPERTY(Replicated, VisibleAnywhere, Category = "Agents")
+		TArray<class AEnemyCharacter*> AllAgents;
+	UPROPERTY(Replicated, EditAnywhere, Category = "Agents")
+		TSubclassOf<AEnemyCharacter> AgentToSpawn;
 
-	UPROPERTY(EditAnywhere)
-	float AllowedAngle;
+	UPROPERTY(Replicated, EditAnywhere)
+		float AllowedAngle;
 
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
