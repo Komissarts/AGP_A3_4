@@ -45,15 +45,40 @@ public:
 	TSubclassOf<AActor> EndingRoom;
 
 	//Hallway Variations
+
+	// -----------------------------------------------------
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> HallWayVariant1;
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	TSubclassOf<AActor> HallWayVariant1a;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	TSubclassOf<AActor> HallWayVariant1b;
+
+	// -----------------------------------------------------
+	
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> HallWayVariant2;
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	TSubclassOf<AActor> HallWayVariant2a;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	TSubclassOf<AActor> HallWayVariant2b;
+
+	// -----------------------------------------------------
+	
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> HallWayVariant3;
 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	TSubclassOf<AActor> HallWayVariant3a;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	TSubclassOf<AActor> HallWayVariant3b;
+
+	
 	//Enemy Room Variations 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> EnemyRoomVariant1;
