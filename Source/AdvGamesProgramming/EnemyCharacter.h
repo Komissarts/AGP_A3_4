@@ -72,6 +72,9 @@ public:
 	bool bReachedClosestScentNode;
 	UPROPERTY(VisibleAnywhere, Category = "Scent")
 		TArray<ANavigationNode*> ScentNodesToVisit;
+		
+	UPROPERTY(VisibleAnywhere, Category = "Scent")
+	TArray<AScent*> ScentsToVisit;
 	UPROPERTY(VisibleAnywhere, Category = "Scent")
 		TArray<ANavigationNode*> PreviouslyVisitedScentNodes;
 	UPROPERTY(EditAnywhere, Category = "Scent")
