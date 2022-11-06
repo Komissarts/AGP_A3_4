@@ -38,69 +38,71 @@ public:
 	//Defining all of the rooms and their variations.
 	//These can be named whatever you want for organization purposes
 	
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	UPROPERTY(Replicated,EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> StartingRoom;
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	UPROPERTY(Replicated,EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> EndingRoom;
 
 	//Hallway Variations
 
 	// -----------------------------------------------------
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	UPROPERTY(Replicated,EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> HallWayVariant1;
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	UPROPERTY(Replicated,EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> HallWayVariant1a;
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	UPROPERTY(Replicated,EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> HallWayVariant1b;
 
 	// -----------------------------------------------------
 	
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	UPROPERTY(Replicated,EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> HallWayVariant2;
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	UPROPERTY(Replicated,EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> HallWayVariant2a;
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	UPROPERTY(Replicated,EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> HallWayVariant2b;
 
 	// -----------------------------------------------------
 	
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	UPROPERTY(Replicated,EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> HallWayVariant3;
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	UPROPERTY(Replicated,EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> HallWayVariant3a;
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	UPROPERTY(Replicated,EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> HallWayVariant3b;
 
 	
 	//Enemy Room Variations 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	UPROPERTY(Replicated,EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> EnemyRoomVariant1;
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	UPROPERTY(Replicated,EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> EnemyRoomVariant2;
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	UPROPERTY(Replicated,EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> EnemyRoomVariant3;
 	
 	//SafeRoom Variations 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	UPROPERTY(Replicated,EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> SafeRoomVariant1;
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	UPROPERTY(Replicated,EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> SafeRoomVariant2;
 	
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Room")
+	UPROPERTY(Replicated,EditAnywhere,BlueprintReadWrite,Category="Room")
 	TSubclassOf<AActor> SafeRoomVariant3;
 
-	//TESTING
-	
+	//Network replication related
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+	//class NetCullDistanceSquared *NetCullDistanceSquaredActor;
 	
 	//Functions
 	void SpawnRoom(UClass*BaseRoomSpawn);

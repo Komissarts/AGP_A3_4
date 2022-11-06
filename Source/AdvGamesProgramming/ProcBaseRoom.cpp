@@ -6,17 +6,20 @@
 
 #include <algorithm>
 
+#include "Net/UnrealNetwork.h"
+
 // Sets default values
 AProcBaseRoom::AProcBaseRoom()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	
 	//Setup stuff
 	BaseRoom = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BaseRoomComponent"));
 	SetRootComponent(BaseRoom);
 
-	
+	//Setting NetCullDistanceSquared to be dynamic based off corridorlength
+	NetCullDistanceSquared = CorridorLength * 5000;
 	
 }
 
@@ -44,6 +47,34 @@ void AProcBaseRoom::Tick(float DeltaTime)
 
 }
 
+
+void AProcBaseRoom::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AProcBaseRoom,StartingRoom);
+	DOREPLIFETIME(AProcBaseRoom,EndingRoom);
+
+	DOREPLIFETIME(AProcBaseRoom,HallWayVariant1);
+	DOREPLIFETIME(AProcBaseRoom,HallWayVariant1a);
+	DOREPLIFETIME(AProcBaseRoom,HallWayVariant1b);
+
+	DOREPLIFETIME(AProcBaseRoom,HallWayVariant2);
+	DOREPLIFETIME(AProcBaseRoom,HallWayVariant2a);
+	DOREPLIFETIME(AProcBaseRoom,HallWayVariant2b);
+
+	DOREPLIFETIME(AProcBaseRoom,HallWayVariant3);
+	DOREPLIFETIME(AProcBaseRoom,HallWayVariant3a);
+	DOREPLIFETIME(AProcBaseRoom,HallWayVariant3b);
+
+	DOREPLIFETIME(AProcBaseRoom,SafeRoomVariant1);
+	DOREPLIFETIME(AProcBaseRoom,SafeRoomVariant2);
+	DOREPLIFETIME(AProcBaseRoom,SafeRoomVariant3);
+
+	DOREPLIFETIME(AProcBaseRoom,EnemyRoomVariant1);
+	DOREPLIFETIME(AProcBaseRoom,EnemyRoomVariant2);
+	DOREPLIFETIME(AProcBaseRoom,EnemyRoomVariant3);
+	
+}
 
 //Spawning the base room that the player will spawn in 
 void AProcBaseRoom::SpawnRoom(UClass* BaseRoomSpawn)
