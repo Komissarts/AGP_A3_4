@@ -102,7 +102,9 @@ public:
 	//Network replication related
 	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
-	//class NetCullDistanceSquared *NetCullDistanceSquaredActor;
+	//nav node related
+	UPROPERTY(EditAnywhere)
+	AAIManager* ProcGenAiManager;
 	
 	//Functions
 	void SpawnRoom(UClass*BaseRoomSpawn);
