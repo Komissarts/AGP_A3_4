@@ -104,7 +104,7 @@ public:
 
 	//nav node related
 	UPROPERTY(EditAnywhere)
-	AAIManager* ProcGenAiManager;
+	class AAIManager* ProcGenAiManager;
 	
 	//Functions
 	void SpawnRoom(UClass*BaseRoomSpawn);
