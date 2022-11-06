@@ -30,12 +30,6 @@ public:
 	float LookSensitivity;
 	UPROPERTY(EditInstanceOnly)
 	float SprintMultiplier;
-
-	//UFUNCTION(Server, Reliable)
-	//	void ServerSprintStart();
-
-	//UFUNCTION(Server, Reliable)
-	//	void ServerSprintEnd();
 	
 	class UHealthComponent* HealthComponent;
 
