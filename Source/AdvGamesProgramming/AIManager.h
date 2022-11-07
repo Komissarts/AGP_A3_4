@@ -21,7 +21,7 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	UPROPERTY(Replicated, EditAnywhere, Category = "AI Properties")
+	UPROPERTY(EditAnywhere, Category = "AI Properties")
 		int32 NumAI;
 	UPROPERTY(Replicated, VisibleAnywhere, Category = "Navigation Nodes")
 		TArray<class ANavigationNode*> AllNodes;

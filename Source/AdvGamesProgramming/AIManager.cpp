@@ -39,7 +39,6 @@ void AAIManager::Tick(float DeltaTime)
 void AAIManager::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME(AAIManager, NumAI);
 	DOREPLIFETIME(AAIManager, AllNodes);
 	DOREPLIFETIME(AAIManager, AllAgents);
 	DOREPLIFETIME(AAIManager, AgentToSpawn);
