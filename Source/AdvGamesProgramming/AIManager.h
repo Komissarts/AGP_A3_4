@@ -21,13 +21,13 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	UPROPERTY(EditAnywhere, Category = "AI Properties")
+	UPROPERTY(Replicated, EditAnywhere, Category = "AI Properties")
 		int32 NumAI;
 	UPROPERTY(Replicated, VisibleAnywhere, Category = "Navigation Nodes")
 		TArray<class ANavigationNode*> AllNodes;
-	UPROPERTY(VisibleAnywhere, Category = "Agents")
+	UPROPERTY(Replicated, VisibleAnywhere, Category = "Agents")
 		TArray<class AEnemyCharacter*> AllAgents;
-	UPROPERTY(EditAnywhere, Category = "Agents")
+	UPROPERTY(Replicated, EditAnywhere, Category = "Agents")
 		TSubclassOf<AEnemyCharacter> AgentToSpawn;
 
 	UPROPERTY(Replicated, EditAnywhere)

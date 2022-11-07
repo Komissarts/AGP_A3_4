@@ -72,3 +72,7 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+Content/Materials/Textures/Asphalt_height.uasset
+Content/Materials/Textures/CrackedRock_height.uasset
+Content/Materials/Textures/Gravel_Basecolour.uasset
+Content/Materials/Textures/Gravel_Normal.uasset
