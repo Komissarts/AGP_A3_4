@@ -46,14 +46,15 @@ public:
 	void SprintStart();
 	void SprintEnd();
 	void Reload();
-	
+
+
+	//Replicated Spawned Scent From Player Character
 	UPROPERTY(Replicated, EditDefaultsOnly, Category = "PlayerScent")
 		TSubclassOf<AScent> ScentToSpawnBP;
-
 	UPROPERTY(Replicated, EditAnywhere, Category = "PlayerScent")
 		float DistanceBeforeLeavingScent;
-
 	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
 	
 	FActorSpawnParameters SpawnParams;
 	

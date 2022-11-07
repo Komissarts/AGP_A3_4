@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "Scent.h"
 #include "DrawDebugHelpers.h"
+#include "Net/UnrealNetwork.h"
 
 
 // Sets default values
@@ -19,6 +20,15 @@ void AScent::BeginPlay()
 	Super::BeginPlay();
 	SetLifeSpan(ScentLifetime);
 }
+
+void AScent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AScent, ScentRadius);
+	DOREPLIFETIME(AScent, ScentLifetime);
+	DOREPLIFETIME(AScent, ScentTimer);
+}
+
 // Called every frame
 void AScent::Tick(float DeltaTime)
 {

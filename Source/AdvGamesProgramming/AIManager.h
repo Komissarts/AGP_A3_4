@@ -20,6 +20,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+//AI Manager Variable Replication
 public:	
 	UPROPERTY(Replicated, EditAnywhere, Category = "AI Properties")
 		int32 NumAI;

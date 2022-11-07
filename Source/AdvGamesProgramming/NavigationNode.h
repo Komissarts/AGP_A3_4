@@ -22,6 +22,7 @@ protected:
 
 public:	
 
+	//Replicating Navigation Node's Variables
 	UPROPERTY(Replicated, EditAnywhere, Category = "ConnectedNodes")
 		TArray<ANavigationNode*> ConnectedNodes;
 	UPROPERTY(Replicated)
@@ -33,11 +34,13 @@ public:
 	UPROPERTY(Replicated)
 		ANavigationNode* CameFrom;
 
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	float FScore();
 	
-	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	
 
 };

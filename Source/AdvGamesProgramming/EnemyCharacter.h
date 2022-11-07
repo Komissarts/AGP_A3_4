@@ -32,22 +32,19 @@ protected:
 
 public:	
 
+	//Replicated Everything from EnemyCharacter
 	UPROPERTY(Replicated)
 		TArray <class ANavigationNode* > Path;
 	UPROPERTY(Replicated)
 		ANavigationNode* CurrentNode;
 	UPROPERTY(Replicated)
 		class AAIManager* Manager;
-
 	UPROPERTY(Replicated, EditAnywhere, meta=(UIMin="10.0", UIMax="1000.0", ClampMin="10.0", ClampMax="1000.0"))
 		float PathfindingNodeAccuracy;
-
 	UPROPERTY(Replicated)
 		class UHealthComponent* HealthComponent;
-
 	UPROPERTY(Replicated, VisibleAnywhere, Category = "AI")
 		AgentState CurrentAgentState;
-
 	UPROPERTY(Replicated)
 		class UAIPerceptionComponent* PerceptionComponent;
 	UPROPERTY(Replicated)
@@ -58,7 +55,6 @@ public:
 		bool bCanSeePhobia;
 	UPROPERTY(Replicated)
 		bool bCanSmellScent;
-
 	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 	// Called every frame

@@ -36,6 +36,7 @@ void AAIManager::Tick(float DeltaTime)
 	
 }
 
+//AI Manager Variable Replication
 void AAIManager::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
