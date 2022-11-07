@@ -25,9 +25,9 @@ public:
 		int32 NumAI;
 	UPROPERTY(Replicated, VisibleAnywhere, Category = "Navigation Nodes")
 		TArray<class ANavigationNode*> AllNodes;
-	UPROPERTY(Replicated, VisibleAnywhere, Category = "Agents")
+	UPROPERTY(VisibleAnywhere, Category = "Agents")
 		TArray<class AEnemyCharacter*> AllAgents;
-	UPROPERTY(Replicated, EditAnywhere, Category = "Agents")
+	UPROPERTY(EditAnywhere, Category = "Agents")
 		TSubclassOf<AEnemyCharacter> AgentToSpawn;
 
 	UPROPERTY(Replicated, EditAnywhere)

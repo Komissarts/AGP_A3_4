@@ -40,8 +40,6 @@ void AAIManager::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifeti
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(AAIManager, AllNodes);
-	DOREPLIFETIME(AAIManager, AllAgents);
-	DOREPLIFETIME(AAIManager, AgentToSpawn);
 	DOREPLIFETIME(AAIManager, AllowedAngle);
 }
 
