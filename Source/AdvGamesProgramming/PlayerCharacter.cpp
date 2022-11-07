@@ -64,6 +64,14 @@ void APlayerCharacter::Tick(float DeltaTime)
 	}
 }
 
+void APlayerCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(APlayerCharacter, ScentToSpawnBP);
+	DOREPLIFETIME(APlayerCharacter, DistanceBeforeLeavingScent);
+}
+
+
 // Called to bind functionality to input
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
