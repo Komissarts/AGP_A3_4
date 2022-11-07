@@ -23,17 +23,17 @@ UHealthComponent::UHealthComponent()
 // Called when the game starts
 void UHealthComponent::BeginPlay()
 {
-//	Super::BeginPlay();
-//
-//	CurrentHealth = MaxHealth;
-//
-//	if (APawn* OwnerPawn = Cast<APawn>(GetOwner()))
-//	{
-//		if (GetOwner()->GetLocalRole() == ROLE_Authority && OwnerPawn->IsLocallyControlled())
-//		{
-//			UpdateHealthBar();
-//		}
-//	}
+	Super::BeginPlay();
+
+	CurrentHealth = MaxHealth;
+
+	if (APawn* OwnerPawn = Cast<APawn>(GetOwner()))
+	{
+		if (GetOwner()->GetLocalRole() == ROLE_Authority && OwnerPawn->IsLocallyControlled())
+		{
+			UpdateHealthBar();
+		}
+	}
 }
 
 
@@ -84,12 +84,12 @@ float UHealthComponent::HealthPercentageRemaining()
 
 void UHealthComponent::UpdateHealthBar()
 {
-//	if (GetOwner()->GetLocalRole() == ROLE_AutonomousProxy || (GetOwner()->GetLocalRole() == ROLE_Authority && Cast<APawn>(GetOwner())->IsLocallyControlled()))
-//	{
-//		APlayerHUD* PlayerHUD = Cast<APlayerHUD>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHUD());
-//		if (IsValid(PlayerHUD))
-//		{
-//			PlayerHUD->SetPlayerHealthBarPercent(CurrentHealth / MaxHealth);
-//		}
-//	}
+	if (GetOwner()->GetLocalRole() == ROLE_AutonomousProxy || (GetOwner()->GetLocalRole() == ROLE_Authority && Cast<APawn>(GetOwner())->IsLocallyControlled()))
+	{
+		APlayerHUD* PlayerHUD = Cast<APlayerHUD>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHUD());
+		if (IsValid(PlayerHUD))
+		{
+			PlayerHUD->SetPlayerHealthBarPercent(CurrentHealth / MaxHealth);
+		}
+	}
 }
